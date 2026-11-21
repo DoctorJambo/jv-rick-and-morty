@@ -35,6 +35,7 @@ public class CharacterClient {
                     .header("User-Agent", USER_AGENT)
                     .build();
             try {
+                Thread.sleep(1000);
                 HttpResponse<String> httpResponse = httpClient.send(request,
                         HttpResponse.BodyHandlers.ofString());
                 CharacterPageDto characterPageDto = objectMapper.readValue(httpResponse.body(),
@@ -44,7 +45,10 @@ public class CharacterClient {
 
                 nextUrl = characterPageDto.info().getNext();
 
-            } catch (IOException | InterruptedException e) {
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException("Thread was interrupted", e);
+            } catch (IOException e) {
                 throw new RuntimeException("Can't get characters", e);
             }
         }
