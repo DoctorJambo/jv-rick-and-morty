@@ -11,7 +11,9 @@ import org.mapstruct.Mapping;
 public interface CharacterMapper {
 
     @Mapping(source = "id", target = "externalId")
+    @Mapping(target = "id", ignore = true)
     Character toCharacter(CharacterResponseDto characterResponseDto);
 
+    @Mapping(target = "externalId", expression = "java(String.valueOf(character.getExternalId()))")
     InternalResponseDto toInternalResponseDto(Character character);
 }

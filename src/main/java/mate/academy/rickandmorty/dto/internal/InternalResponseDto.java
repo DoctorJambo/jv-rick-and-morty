@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class InternalResponseDto {
     private Long id;
-    private Long externalId;
+    private String externalId;
     private String name;
     private String status;
     private String gender;

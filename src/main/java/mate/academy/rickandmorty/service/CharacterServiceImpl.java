@@ -3,7 +3,6 @@ package mate.academy.rickandmorty.service;
 import java.util.List;
 import java.util.Random;
 import mate.academy.rickandmorty.dto.internal.InternalResponseDto;
-import mate.academy.rickandmorty.dto.internal.SearchParametersDto;
 import mate.academy.rickandmorty.mapper.CharacterMapper;
 import mate.academy.rickandmorty.model.Character;
 import mate.academy.rickandmorty.repository.CharacterRepository;
@@ -50,9 +49,9 @@ public class CharacterServiceImpl implements CharacterService {
 
     @Override
     public List<InternalResponseDto> getCharactersByParams(
-            SearchParametersDto searchParametersDto) {
+            String partName) {
         Specification<Character> specification = nameSpecification
-                .getSpecification(searchParametersDto.param());
+                .getSpecification(partName);
         return characterRepository.findAll(specification).stream()
                 .map(e -> characterMapper.toInternalResponseDto(e))
                 .toList();
